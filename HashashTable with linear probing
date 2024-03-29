@@ -1,0 +1,106 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Hashing
+{
+    private: 
+
+    int capacity;// total capacity of Hash Table
+    int *a = NULL;
+    public:
+    Hashing()
+    {
+        capacity=1;
+        a = new int[capacity];
+        
+    }
+    Hashing(int s)
+    {
+        this->capacity=s;
+        a = new int[capacity];
+        for(int i=0;i<capacity;i++)
+        {
+            a[i]=INT_MIN;
+        }
+    
+    }
+    void insert(int val)
+    {
+        std::cout<<"Probing till u find empty slot";
+        int key=hash(val);
+        while(a[key]!= INT_MIN && a[key]!= INT_MAX)
+        {
+            key= (key+1)%capacity;
+        }
+        a[key]=val;
+    }
+    bool search(int val)
+    {
+        std::cout<<"Searching till u find key";
+        int key=hash(val);
+        while(a[key]!=val)
+        {
+            if(a[key]==INT_MIN)
+                return false;
+            key= (key+1)%capacity;
+        }
+        if(a[key]==val)
+        return true;
+        return false;    
+    }
+    
+    bool deletei(int val)
+    {
+        std::cout<<"deletion";
+        int key=hash(val);
+        while(a[key]!=val)
+        {
+            if(a[key]==INT_MIN)
+                return false;
+            key= (key+1)%capacity;
+        }
+        if(a[key]==val)
+        a[key]=INT_MAX; 
+        return true;
+    }
+    
+    int hash(int val)
+    {
+        return val%capacity;
+    }
+  
+    
+    void print()
+    {
+        std::cout << "Print ";
+        for(int i=0;i<capacity;i++)
+        {
+            std::cout<<a[i]<<" ";
+        }
+        std::cout<< "Capacity  " << capacity << "\n";
+    }
+};
+
+int main() {
+   
+    
+    Hashing h(7);
+    h.insert(16);
+    h.insert(40);
+    h.insert(27);
+    h.insert(9);
+    h.insert(75);
+    h.print();
+    
+    if(h.search(75))
+        cout<<"75 found"<<endl;
+    if(h.search(40))
+        cout<<"40 found"<<endl;
+
+    h.deletei(40);
+    if(!h.search(40))
+        cout<<"After deleting 40, 40 is not found";
+        
+    h.print();
+    
+    
+}
