@@ -4,7 +4,7 @@ class Stack
 {
     private: 
     int size; // no of elements present
-    int capacity;// total capacity of dynamic array
+    int capacity;// total capacity of dynamic arr
     int *a = NULL;
     int  top;
     public:
